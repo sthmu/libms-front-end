@@ -1,25 +1,182 @@
-<div class="table-responsive small">
-    <table class="table table-striped table-sm">
-      <thead>
-        <tr>
-          <th scope="col">Id</th>
-          <th scope="col">ISBN</th>
-          <th scope="col">Title</th>
-          <th scope="col">Author</th>
-          <th scope="col">Category</th>
-          <th scope="col">QTY</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let book of bookList">
-          <td>{{book.id}}</td>
-          <td>{{book.isbn}}</td>
-          <td>{{book.title}}</td>
-          <td>{{book.author}}</td>
-          <td>{{book.category}}</td>
-          <td>{{book.qty}}</td>
-        </tr>
-        
-      </tbody>
-    </table>
+
+<div class="row">
+  <div class="col col-2 ms-5 "><button type="button" (click)="resetItems()" class="btn btn-primary m-1"><h6><i class="bi bi-plus-square-fill"></i> refreshItems</h6></button></div>
+  <div class="col col-2 ms-3 "><button type="button" (click)="deleteAll()" class="btn btn-danger m-1"><h6><i class="bi bi-plus-square-fill"></i>Delete All</h6></button></div>
+  <div class="container me-5 col  d-flex justify-content-end"><button type="button" data-bs-toggle="modal" data-bs-target="#addItemModal" class="btn btn-primary m-1"><h6><i class="bi bi-plus-square-fill"></i> Add Items</h6></button></div>
+</div>
+<div class="table-responsive small mx-5">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">ISBN</th>
+        <th scope="col">Title</th>
+        <th scope="col">Author</th>
+        <th scope="col">Category</th>
+        <th scope="col">QTY</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of bookList">
+        <td>#BN{{book.id}}</td>
+        <td>{{book.isbn}}</td>
+        <td>{{book.title}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.category}}</td>
+        <td>{{book.qty}}</td>
+        <td><button type="button" (click)="setSelectedBook(book)" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            class="btn btn-danger" ><i class="bi bi-trash"></i>
+          </button></td>
+        <td><button class="btn btn-primary" (click)="setSelectedBook(book)" data-bs-toggle="modal" data-bs-target="#updateBookMdal"><i class="bi bi-pen-fill"></i></button></td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" *ngIf="selectedBook">
+        do you want to delete the {{selectedBook.title}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" (click)="deleteBook()" data-bs-dismiss="modal" class="btn btn-danger">Delete Book</button>
+      </div>
+    </div>
   </div>
+</div>
+
+
+<!-- ADD ITEM MODAL -->
+<div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="addItemModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Book</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="needs-validation" novalidate>
+          <div class="mb-3">
+            <label for="isbn" class="form-label">ISBN</label>
+            <input type="text" class="form-control" id="isbn" required>
+            <div class="invalid-feedback">
+              Please enter the ISBN.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" required>
+            <div class="invalid-feedback">
+              Please enter the title.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input type="text" class="form-control" id="author" required>
+            <div class="invalid-feedback">
+              Please enter the author.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <input type="text" class="form-control" id="category" required>
+            <div class="invalid-feedback">
+              Please enter the category.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="qty" class="form-label">Quantity</label>
+            <input type="number" class="form-control" id="qty" required>
+            <div class="invalid-feedback">
+              Please enter a valid quantity.
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" >Save Book</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Udate Confirmation Modal -->
+<div class="modal fade" id="updateConfirmationModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       Do you want to update {{selectedBook?.title}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateBook();">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- UPDATE MODAL -->
+
+<div class="modal fade" id="updateBookMdal" tabindex="-1" aria-labelledby="updateBookMdal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Book</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="needs-validation" novalidate>
+          <div class="mb-3">
+            <label for="id" class="form-label">ID</label>
+            <input [ngModel]="selectedBook && selectedBook.id" [ngModelOptions]="{standalone:true}" disabled type="text" class="form-control" id="isbn" required>
+             
+          </div>
+          <div class="mb-3">
+            <label for="isbn" class="form-label">ISBN</label>
+            <input [ngModel]="selectedBook && selectedBook.isbn" [ngModelOptions]="{standalone:true}" disabled type="text" class="form-control" id="isbn" required>
+            
+          </div>
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" [ngModel]="selectedBook && selectedBook.title" [ngModelOptions]="{standalone:true}"  class="form-control" id="title" required>
+            
+          </div>
+          <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input  type="text" [ngModel]="selectedBook && selectedBook.author" [ngModelOptions]="{standalone:true}"  class="form-control" id="author" required>
+           
+          </div>
+          <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <input  type="text" [ngModel]="selectedBook && selectedBook.category" [ngModelOptions]="{standalone:true}" class="form-control" id="category" required>
+            
+          </div>
+          <div class="mb-3">
+            <label for="qty" class="form-label">Quantity</label>
+            <input type="number" [(ngModel)]="selectedBook && selectedBook.qty"  [ngModelOptions]="{standalone:true}" class="form-control" id="qty" required>
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#updateConfirmationModal">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
