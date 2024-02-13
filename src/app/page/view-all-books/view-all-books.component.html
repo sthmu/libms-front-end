@@ -124,7 +124,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateBook();">Save changes</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateBook()">Save changes</button>
       </div>
     </div>
   </div>
@@ -143,27 +143,27 @@
         <form class="needs-validation" novalidate>
           <div class="mb-3">
             <label for="id" class="form-label">ID</label>
-            <input [ngModel]="selectedBook && selectedBook.id" [ngModelOptions]="{standalone:true}" disabled type="text" class="form-control" id="isbn" required>
+            <input [(ngModel)]="selectedBook && selectedBook.id" [ngModelOptions]="{standalone:true}" disabled type="text" class="form-control" id="isbn" required>
              
           </div>
           <div class="mb-3">
             <label for="isbn" class="form-label">ISBN</label>
-            <input [ngModel]="selectedBook && selectedBook.isbn" [ngModelOptions]="{standalone:true}" disabled type="text" class="form-control" id="isbn" required>
+            <input [(ngModel)]="selectedBook && selectedBook.isbn" [ngModelOptions]="{standalone:true}" disabled type="text" class="form-control" id="isbn" required>
             
           </div>
           <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="text" [ngModel]="selectedBook && selectedBook.title" [ngModelOptions]="{standalone:true}"  class="form-control" id="title" required>
+            <input type="text" [(ngModel)]="selectedBook && selectedBook.title" [ngModelOptions]="{standalone:true}"  class="form-control" id="title" required>
             
           </div>
           <div class="mb-3">
             <label for="author" class="form-label">Author</label>
-            <input  type="text" [ngModel]="selectedBook && selectedBook.author" [ngModelOptions]="{standalone:true}"  class="form-control" id="author" required>
+            <input  type="text" [(ngModel)]="selectedBook && selectedBook.author" [ngModelOptions]="{standalone:true}"  class="form-control" id="author" required>
            
           </div>
           <div class="mb-3">
             <label for="category" class="form-label">Category</label>
-            <input  type="text" [ngModel]="selectedBook && selectedBook.category" [ngModelOptions]="{standalone:true}" class="form-control" id="category" required>
+            <input  type="text" [(ngModel)]="selectedBook && selectedBook.category" [ngModelOptions]="{standalone:true}" class="form-control" id="category" required>
             
           </div>
           <div class="mb-3">
